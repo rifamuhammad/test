@@ -1,0 +1,48 @@
+using System;
+
+public class Program
+{
+    public static string procVowel(string param)
+    {
+        string vowels = "aeiou";
+        string result = "";
+
+        foreach (char c in param.ToLower()) 
+        {
+            if (vowels.Contains(c)) 
+            {
+                result += c;
+            }
+        }
+
+        return result;
+    }
+
+    public static string procConsonant(string param)
+    {
+        string vowels = "aeiou";
+        string result = "";
+
+        foreach (char c in param.ToLower()) 
+        {
+            if (char.IsLetter(c) && !vowels.Contains(c)) 
+            {
+                result += c;
+            }
+        }
+
+        return result;
+    }
+
+    public static void Main()
+    {
+        string input = Console.ReadLine(); 
+        string charVowel = procVowel(input);
+        string charConsonant = procConsonant(input);
+
+        Console.WriteLine("Vowel Characters :");
+        Console.WriteLine(charVowel);
+        Console.WriteLine("Consonant Characters :");
+        Console.WriteLine(charConsonant);
+    }
+}
