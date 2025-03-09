@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        try
+        {
+            string firstLine = Console.ReadLine().Trim();
+            string secondLine = Console.ReadLine().Trim();
+            
+            int n = int.Parse(firstLine);
+            string[] tokens = secondLine.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            
+            
+            if (tokens.Length != n)
+            {
+                Console.WriteLine("Input must be equal with count of family");
+                return;
+            }
+            
+           
+            int[] familySizes = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                familySizes[i] = int.Parse(tokens[i]);
+            }
+            
+            
+            int result = CalculateMinBuses(familySizes);
+            Console.WriteLine($"Minimum bus required is : {result}");
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Input must be equal with count of family");
+        }
+    }
+    
+    static int CalculateMinBuses(int[] families)
+    {
+     
+        List<int> largeFamily = new List<int>();
+        List<int> smallFamily = new List<int>();
+        
+        foreach (int size in families)
+        {
+            if (size > 4)
+                largeFamily.Add(size);
+            else
+                smallFamily.Add(size);
+        }
+        
+    
+        int buses = largeFamily.Count;
+        
+  
+        smallFamily.Sort();
+        smallFamily.Reverse();
+        
+      
+        int left = 0;
+        int right = smallFamily.Count - 1;
+        
+        while (left <= right)
+        {
+         
+            int current = smallFamily[left++];
+            
+          
+            if (left <= right && current + smallFamily[right] <= 4)
+            {
+                right--;
+            }
+       
+            buses++;
+        }
+        
+        return buses;
+    }
+}
